@@ -141,7 +141,7 @@ class FeaturesWriter:
         Returns:
             bool
         """
-        return self.data is not None
+        return len(self.data) > 0
 
     def dump(self) -> None:
         """Saves the accumulated features to disk.
@@ -282,6 +282,7 @@ if __name__ == "__main__":
 
     features_writer = FeaturesWriter(num_videos=data_loader.video_count)
     loop_i = 0
+    videoName = ""
     with torch.no_grad():
         for data, clip_idxs, dirs, vid_names in data_iter:
             outputs = network(data.to(device)).detach().cpu().numpy()
